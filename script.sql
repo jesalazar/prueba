@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `dev_jhon` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `dev_jhon`;
 -- MySQL dump 10.16  Distrib 10.1.26-MariaDB, for debian-linux-gnu (x86_64)
 --
 -- Host: 35.193.179.214    Database: dev_jhon

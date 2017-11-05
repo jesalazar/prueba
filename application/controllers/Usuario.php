@@ -46,14 +46,14 @@ class Usuario extends CI_Controller {
     public function logout()
     {
         $this->session->sess_destroy();
-	header('Location: /prueba');
-	exit;
+        header('Location: /prueba');
+        exit;
     }
 
     /*
      * Metodo para registrar un usario
      */
-    public function new()
+    public function newUser()
     {
         $datos = $this->input->post(); // Recibe datos via post
         $datos['password'] = sha1($this->input->post('password'));
@@ -78,29 +78,25 @@ class Usuario extends CI_Controller {
      */
     public function upload()
     {
-        // echo "test";
-        // exit;
-        // if ($this->input->is_ajax_request()) {
-            // Valida si puede realizar esta accion
-            if ($this->Usuario_model->canUpload()) {
-                $date = new DateTime();
-                $date = $date->getTimestamp();
-                $foto = $_FILES['foto']['tmp_name'];
-                $ruta = $_SERVER["DOCUMENT_ROOT"].'prueba/assets/img/'.$date.$_FILES['foto']['name'];
-		$rutaDB = 'assets/img/'.$date.$_FILES['foto']['name'];
-                move_uploaded_file($foto, $ruta);
-                $datos = [
-                    "foto"        => $rutaDB,
-                    "descripcion" => $this->input->post('descripcion'),
-                    "usuario_id"  => $this->session->userdata("id")
-                ];
-                if ($this->Usuario_model->insert("usuario_fotos", $datos)) {
-                    echo true;
-                }
-            } else {
-                echo false;
+        // Valida si puede realizar esta accion
+        if ($this->Usuario_model->canUpload()) {
+            $date = new DateTime();
+            $date = $date->getTimestamp();
+            $foto = $_FILES['foto']['tmp_name'];
+            $ruta = $_SERVER["DOCUMENT_ROOT"].'/prueba/assets/img/'.$date.$_FILES['foto']['name'];
+            $rutaDB = 'assets/img/'.$date.$_FILES['foto']['name'];
+            move_uploaded_file($foto, $ruta);
+            $datos = [
+                "foto"        => $rutaDB,
+                "descripcion" => $this->input->post('descripcion'),
+                "usuario_id"  => $this->session->userdata("id")
+            ];
+            if ($this->Usuario_model->insert("usuario_fotos", $datos)) {
+                echo true;
             }
-        // }
+        } else {
+            echo false;
+        }
     }
 
     /*

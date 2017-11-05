@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </head>
     <body class="body">
         <?php
-            // Obtiene estado de likes de las fotos
+            // Obtiene estado de likes de las fotos de usuario en sesion
             function getState($likes, $row) {
                 $votos = array_filter(
                     $likes,
@@ -49,9 +49,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     </button>
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="">
+                            <?= ($userName) ? 'Bienvenido '.$userName.'!' : ''; ?>
+                        </a>
+                    </div>
                 </div>
                 <div class="collapse navbar-collapse" id="navbar">
-                    <?php if ($this->session->userdata('id')): ?>
+                    <?php if ($userId): ?>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="#" data-toggle="modal" data-target="#modalFormFotos"><span class="glyphicon glyphicon-picture"></span> Subir foto</a></li>
                         <li><a href="index.php/usuario/logout"><span class="glyphicon glyphicon-log-in"></span> Cerrar sesón</a></li>
@@ -83,7 +88,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <td><?= $row[$i]->id; ?></td>
                             <td class="text-center">
                                 <img src="<?=$row[$i]->foto;?>" style="height: 170px;"><br>
-                                <?php if ($this->session->userdata('id')): ?>
+                                <?php if ($userId): ?>
                                     <?php $status = getState($userLikes, $row[$i]->id); ?>
                                     <?php if ($status===true): ?>
                                         <a class="like selected" data-like="1" data-foto="<?=$row[$i]->id;?>" data-url="index.php/usuario/likes">Me gusta</a>
@@ -104,7 +109,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </tbody>
             </table>
             <!-- End Tabla Registros -->
-            <?php if ($this->session->userdata('id')): ?>
+            <?php if ($userId): ?>
             <!-- Modal Form Fotos -->
             <div class="modal fade" id="modalFormFotos" role="dialog" >
                 <div class="modal-dialog" style="width: 400px;">
@@ -175,7 +180,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                             <h4 class="modal-title">Regístrate</h4>
                         </div>
-                        <form action="index.php/usuario/new" class="form-horizontal" id="formRegistro" method="POST" role="form" style="padding:0 30px;">
+                        <form action="index.php/usuario/newuser" class="form-horizontal" id="formRegistro" method="POST" role="form" style="padding:0 30px;">
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <label for="identificacion" class="control-label">Identificación</label>
@@ -229,7 +234,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div role="main" class="container">
             <hr>
             <footer>
-                <h5 class="text-center">© 2017, Desarrollado por Jhon Salazar.</h5>
+                <h5 class="text-center">© 2017, Desarrollado por Jhon Salazar</h5>
             </footer>
         </div>
         <!-- End Footer -->
