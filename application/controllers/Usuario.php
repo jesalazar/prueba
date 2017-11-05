@@ -83,9 +83,7 @@ class Usuario extends CI_Controller {
             $date = new DateTime();
             $date = $date->getTimestamp();
             $foto = $_FILES['foto']['tmp_name'];
-            // Si estas en Windows utiliza esta línea
-            // $ruta = $_SERVER["DOCUMENT_ROOT"].'/prueba/assets/img/'.$date.$_FILES['foto']['name'];
-            $ruta = $_SERVER["DOCUMENT_ROOT"].'prueba/assets/img/'.$date.$_FILES['foto']['name'];
+            $ruta = $_SERVER["DOCUMENT_ROOT"].'/prueba/assets/img/'.$date.$_FILES['foto']['name'];
             $rutaDB = 'assets/img/'.$date.$_FILES['foto']['name'];
             move_uploaded_file($foto, $ruta);
             $datos = [
